@@ -32,7 +32,33 @@ class ContactForm(forms.Form):
     )
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField()
+    username = forms.CharField(
+        label="Nombre de usuario",
+        help_text="Máximo 150 caracteres. Letras, números y @/./+/-/_ únicamente."
+    )
+
+    email = forms.EmailField(
+        label="Correo electrónico"
+    )
+
+    password1 = forms.CharField(
+        label="Contraseña",
+        widget=forms.PasswordInput,
+        help_text="""
+        <ul>
+            <li>No puede ser similar a tu información personal.</li>
+            <li>Debe tener al menos 8 caracteres.</li>
+            <li>No puede ser una contraseña común.</li>
+            <li>No puede ser solo numérica.</li>
+        </ul>
+        """
+    )
+
+    password2 = forms.CharField(
+        label="Confirmar contraseña",
+        widget=forms.PasswordInput,
+        help_text="Ingresá la misma contraseña para verificación."
+    )
 
     class Meta:
         model = User

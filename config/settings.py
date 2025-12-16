@@ -23,10 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ukqc=)6p5o#1bmsz*75j*2g(o7&&jz)o)890#*a0s(1^&7*3%)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'kevinbiz.pythonanywhere.com',
+    'www.kevinbiz.pythonanywhere.com',
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://kevinbiz.pythonanywhere.com',
+    'https://www.kevinbiz.pythonanywhere.com',
+]
 
 # Application definition
 
@@ -126,4 +133,12 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
 
+LOGIN_URL = '/accounts/login/'
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / "static"
+
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
