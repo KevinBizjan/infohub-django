@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+
+{% block title %}Categoría{% endblock %}
+
+{% block content %}
+<h1>Posts por categoría</h1>
+
+<a href="?order=asc" class="btn btn-outline-primary btn-sm">Más antiguos</a>
+<a href="?order=desc" class="btn btn-outline-primary btn-sm">Más recientes</a>
+
+<hr>
+
+<div class="row">
+{% for post in posts %}
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.content|slice:":200" }}...</p>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>No hay publicaciones.</p>
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "core/base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Últimos Posts</h1>
+
+<div class="row">
+    {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+
+                    <p class="card-text">
+                        {{ post.content|slice:":120" }}...
+                    </p>
+
+                    <span class="badge bg-secondary">
+                        {{ post.category.name }}
+                    </span>
+                </div>
+
+                {% if user.is_authenticated %}
+                    {% if user == post.author or user.is_staff %}
+                        <div class="card-footer text-end">
+                            <a href="{% url 'edit_post' post.id %}" class="btn btn-sm btn-warning">
+                                Editar
+                            </a>
+                            <a href="{% url 'delete_post' post.id %}" class="btn btn-sm btn-danger">
+                                Eliminar
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay publicaciones.</p>
+    {% endfor %}
+</div>
+
+
+<hr>
+
+<h3>Categorías</h3>
+<ul>
+    {% for category in categories %}
+        <li>
+            <a href="{% url 'posts_by_category' category.id %}">
+                {{ category.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
