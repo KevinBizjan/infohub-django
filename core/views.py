@@ -122,4 +122,9 @@ def contact_success(request):
 def about(request):
     return render(request, 'core/about.html')
 
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id, is_active=True)
+    return render(request, 'core/post_detail.html', {'post': post})
+
+
 from .forms import ContactForm
